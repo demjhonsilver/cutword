@@ -10,7 +10,7 @@ Cutword
 
 
 [![Gem Version](https://img.shields.io/gem/v/cutword.svg?logo=ruby&style=flat-square&label=Gem&color=blue)](https://rubygems.org/gems/cutword)
-[![Gem Downloads](https://img.shields.io/gem/dt/cutword.svg?&style=flat-square&label=Downloads&color=orange)](https://rubygems.org/gems/cutword)
+
 
 
 
@@ -73,6 +73,21 @@ Attributes  |  Functionality |
 
 To install the Cutword, you can use the following gem install command:
 
+
+Step 1:
+
+- Paste to your Gemfile then save.
+
+
+```bash
+
+gem 'cutword', '~> 0.1.0'
+
+```
+Step 2:
+
+- Run this to your Terminal / Command Prompt / Powershell / Gitbash
+
 ```bash
 
 gem install cutword
@@ -80,22 +95,42 @@ gem install cutword
 ```
 
 
+Step 3:
+
+- Run this to your Terminal / Command Prompt / Powershell / Gitbash
+
+```bash
+
+ bundle install
+
+```
+
+
+Step 4:
+
+- Restart Server
+
+```bash
+
+ rails s
+
+```
+
 ## Example
+
+
+Before:
+
+
+Scene  |  Example words |
+------ | -------- |
+`Before` | Mary had a little lamb, its fleece was white as snow. | 
+`After` | Mary had a little lamb, its...|
 
 
 This is sample for Ruby on Rails:
 
 
-```rb
-# Example usage in a Rails controller:
-
-class MyController < ApplicationController
-  def index
-    @truncated_text = Cutword.slicer('Lorem ipsum dolor sit amet', 10)
-  end
-end
-
-```
 
 ```rb
 # app/controllers/articles_controller.rb
@@ -103,10 +138,52 @@ end
 class ArticlesController < ApplicationController
   def index
     @articles = Article.all.order("created_at DESC")
-    @minimize_titles = @articles.map { |article| Cutword.slicer(article.title, 50) }
+    @short_titles = @articles.map { |article| Cutword.slicer(article.title, 40) }
   end
 end
 ```
+
+
+In your View Template:
+
+```rb
+
+<% @articles.each_with_index do |article, index| %>
+  <h2><%= @short_titles[index] %></h2>
+  <div><%= article.body %></div>
+  <br>
+  <%= link_to 'Read Article', article %>
+<% end %>
+
+```
+
+--------------------
+
+-----------------
+
+```rb
+# app/controllers/articles_controller.rb
+
+class ArticlesController < ApplicationController
+  def show
+    @article = Article.find(params[:id])
+    @short_title = Cutword.slicer(@article.title, 40)
+  end
+end
+
+```
+
+In your View Template:
+
+```rb
+
+<h1><%= @short_title %></h1>
+<div><%= @article.body %></div>
+
+```
+
+
+
 
 ## License
 

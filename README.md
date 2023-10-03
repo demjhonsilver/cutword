@@ -119,8 +119,6 @@ Step 4:
 ## Example
 
 
-Before:
-
 
 Scene  |  Example words |
 ------ | -------- |
@@ -151,8 +149,6 @@ In your View Template:
 <% @articles.each_with_index do |article, index| %>
   <h2><%= @short_titles[index] %></h2>
   <div><%= article.body %></div>
-  <br>
-  <%= link_to 'Read Article', article %>
 <% end %>
 
 ```

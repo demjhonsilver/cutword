@@ -81,7 +81,7 @@ Step 1:
 
 ```bash
 
-gem 'cutword', '~> 1.0.0'
+gem 'cutword', '~> 1.0'
 
 ```
 

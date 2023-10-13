@@ -1,18 +1,10 @@
-
-
-
 <div align="center">
 
-Cutword
-
---------
+<h1>Cutword</h1>
 
 
-
-[![Gem Version](https://img.shields.io/gem/v/cutword.svg?logo=ruby&style=flat-square&label=Gem&color=blue)](https://rubygems.org/gems/cutword)
-
-
-
+[![Gem Version](https://img.shields.io/gem/v/cutword.svg?logo=ruby&style=flat-square&label=Latest&color=brightgreen)](https://rubygems.org/gems/cutword)
+![Downloads](https://img.shields.io/gem/dt/cutword.svg?&style=flat-square&label=Downloads&color=orange)
 
 
 </div>
@@ -50,9 +42,13 @@ Cutword is a simple gem for string truncation/cut words in Ruby on Rails.
 
 ## Release-notes
 
-Version 0.1.0
+Version 1.0.0.alpha1
 
 
+
+Major notes:
+
+- Renamed the `slicer` into `get` to make it short.
 
 -------
 
@@ -65,7 +61,7 @@ Version 0.1.0
 Attributes  |  Functionality |
 ------ | -------- |
 `Cutword` | gem file module | 
-`slicer` | to slice the words and letters with dynamic limit value |
+`get` | to get the words and letters with dynamic limit value |
 
 
 ## Installation
@@ -81,23 +77,13 @@ Step 1:
 
 ```bash
 
-gem 'cutword', '~> 0.1.0'
+gem 'cutword', '~> 1.0.0.alpha1'
 
 ```
+
 Step 2:
 
-- Run this to your Terminal / Command Prompt / Powershell / Gitbash
-
-```bash
-
-gem install cutword
-
-```
-
-
-Step 3:
-
-- Run this to your Terminal / Command Prompt / Powershell / Gitbash
+- Run this to your Terminal
 
 ```bash
 
@@ -106,7 +92,7 @@ Step 3:
 ```
 
 
-Step 4:
+Step 5:
 
 - Restart Server
 
@@ -120,13 +106,26 @@ Step 4:
 
 
 
-Scene  |  Example words |
+Comparison |  Example words |
 ------ | -------- |
 `Before` | Mary had a little lamb, its fleece was white as snow. | 
 `After` | Mary had a little lamb, its...|
 
 
-This is sample for Ruby on Rails:
+------------
+
+
+
+
+
+```
+
+
+----------------
+
+
+
+This is sample for Methods:
 
 
 
@@ -136,7 +135,7 @@ This is sample for Ruby on Rails:
 class ArticlesController < ApplicationController
   def index
     @articles = Article.all.order("created_at DESC")
-    @short_titles = @articles.map { |article| Cutword.slicer(article.title, 40) }
+    @articleTitles_cut = @articles.map { |article| Cutword.get(article.title, 40) }
   end
 end
 ```
@@ -147,7 +146,7 @@ In your View Template:
 ```rb
 
 <% @articles.each_with_index do |article, index| %>
-  <h2><%= @short_titles[index] %></h2>
+  <h2><%= @articleTitles_cut[index] %></h2>
   <div><%= article.body %></div>
 <% end %>
 
@@ -163,7 +162,7 @@ In your View Template:
 class ArticlesController < ApplicationController
   def show
     @article = Article.find(params[:id])
-    @short_title = Cutword.slicer(@article.title, 40)
+    @articleTitle_cut = Cutword.get(@article.title, 40)
   end
 end
 
@@ -173,7 +172,7 @@ In your View Template:
 
 ```rb
 
-<h1><%= @short_title %></h1>
+<h1><%= @articleTitle_cut %></h1>
 <div><%= @article.body %></div>
 
 ```

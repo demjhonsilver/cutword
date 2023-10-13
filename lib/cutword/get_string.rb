@@ -1,6 +1,3 @@
-require 'cutword/version'
-require 'cutword/get_string'
-
 module Cutword
   class << self
     def get(text, max_length)
@@ -13,4 +10,3 @@ module Cutword
     end
   end
 end
-

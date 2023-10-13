@@ -9,6 +9,6 @@ Gem::Specification.new do |spec|
     spec.description   = 'This gem provides a string truncation/cut words method for Ruby on Rails applications.'
     spec.homepage      = 'https://github.com/demjhonsilver/cutword'
     spec.license       = 'MIT'
-    
+
     spec.files         = Dir['lib/**/*.rb']
 end

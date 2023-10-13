@@ -12,8 +12,11 @@
 </div>
 
 </div>
+<p align="center">
 
----------------------
+<img src="https://raw.githubusercontent.com/demjhonsilver/cutword/main/public/screenshot.png" alt="Logo" width="800" height="450"/>
+
+</p>
 
 ## Table of Contents
 
@@ -42,13 +45,14 @@ Cutword is a simple gem for string truncation/cut words in Ruby on Rails.
 
 ## Release-notes
 
-Version 1.0.0.alpha1
+Version 1.0.0
 
 
 
 Major notes:
 
 - Renamed the `slicer` into `get` to make it short.
+- 2 methods are available
 
 -------
 
@@ -77,7 +81,7 @@ Step 1:
 
 ```bash
 
-gem 'cutword', '~> 1.0.0.alpha1'
+gem 'cutword', '~> 1.0.0'
 
 ```
 
@@ -113,20 +117,36 @@ Comparison |  Example words |
 
 
 ------------
+Method 1
+----------
+No need to declare cutword module inside the controllers
 
+--------------
+In your View Template:
 
+just use directly:
 
+ex. index.html
 
+```rb
+
+  <% @articles.each do |article| %>
+     <h2><%= Cutword.get(article.title, 20) %></h2>
+      <%= article.body %>
+  <% end %>
 
 ```
 
+ex. show.html
 
+```rb
+
+<%= Cutword.get(@article.title, 20) %>
+
+```
 ----------------
-
-
-
-This is sample for Methods:
-
+Methods 2
+--------------
 
 
 ```rb
@@ -177,7 +197,9 @@ In your View Template:
 
 ```
 
+You can view the exact web application sample:
 
+[Click here to see the actual code](https://github.com/demjhonsilver/ruby-on-rails-articles)
 
 
 ## License

@@ -5,8 +5,8 @@ Gem::Specification.new do |spec|
     spec.version       =  Cutword::VERSION
     spec.authors       = 'Demjhon Silver'
     spec.email         = 'none'
-    spec.summary       = 'A simple gem for cut words/string truncation in Ruby on Rails.'
-    spec.description   = 'This gem provides a string truncation/cut words method for Ruby on Rails applications.'
+    spec.summary       = 'A simple gem for cutting words/string truncation in Ruby on Rails.'
+    spec.description   = 'This gem provides a string truncation/cutting words method for Ruby on Rails applications.'
     spec.homepage      = 'https://github.com/demjhonsilver/cutword'
     spec.license       = 'MIT'
 

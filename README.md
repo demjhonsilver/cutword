@@ -96,7 +96,7 @@ Step 2:
 ```
 
 
-Step 5:
+Step 3:
 
 - Restart Server
 

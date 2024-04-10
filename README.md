@@ -216,18 +216,64 @@ In your View Template:
 -------
 go to:
 
-config/app.rb
+app/views/helpers.rb
 
 add: 
 
 require "cutword"
 
 
+Method 1 ( Direct)
+
 -------
 ```rb
-# config/app.rb
+# app/views/helpers.rb
 
-require "cutword"
+module Bookshelf
+  module Views
+    module Helpers
+      # Add your view helpers here
+      require 'cutword'
+
+    end
+  end
+end
+
+```
+
+or 
+
+
+Method 2
+
+
+
+```rb
+# app/views/helpers.rb
+
+module Booklab
+  module Views
+    module Helpers
+      include CutwordHelper
+    end
+  end
+end
+
+```
+
+then create file: 
+
+```rb
+# app/views/helpers/cutword_helper.rb
+module Bookshelf
+    module Views
+      module Helpers
+        module CutwordHelper
+          require 'cutword'
+        end
+      end
+    end
+end
 
 ```
 

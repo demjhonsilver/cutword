@@ -286,10 +286,10 @@ Let say your application is about books
 
 go to:
 
-app/bookshelf/views/books/index.rb
+app/views/books/index.rb
 
 ```rb
-# app/bookshelf/views/books/index.rb
+# app/views/books/index.rb
 
 module Bookshelf
   module Views
@@ -321,12 +321,12 @@ end
 go to:
 
 
-app/bookshelf/views/books/show.rb
+app/views/books/show.rb
 
 
 ```ruby
 
-# app/bookshelf/views/books/show.rb
+# app/views/books/show.rb
 
 module Bookshelf
   module Views
@@ -361,7 +361,7 @@ don't forget to add:
 
 `require "cutword"`
 
-in config/app.rb see above: [require "cutword"](#hanami-framework)
+in app/views/helpers.rb see above: [require "cutword"](#hanami-framework)
 
 -------
 

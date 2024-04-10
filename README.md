@@ -251,7 +251,7 @@ Let say your application is about books
 
 go to:
 
-app/view/books/index.rb
+app/bookshelf/views/books/index.rb
 
 ```rb
 # app/bookshelf/views/books/index.rb

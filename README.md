@@ -3,7 +3,6 @@
 <h1>Cutword</h1>
 
 [![Gem Version](https://badge.fury.io/rb/cutword.svg)](https://badge.fury.io/rb/cutword)
-[![Gem Version](https://img.shields.io/gem/v/cutword.svg?logo=ruby&style=flat-square&label=Ruby&color=red)](https://rubygems.org/gems/cutword)
 ![Downloads](https://img.shields.io/gem/dt/cutword.svg?&style=flat-square&label=Downloads&color=orange)
 
 
@@ -12,11 +11,7 @@
 </div>
 
 </div>
-<p align="center">
 
-<img src="https://raw.githubusercontent.com/demjhonsilver/cutword/main/public/screenshot.png" alt="Logo" width="800" height="450"/>
-
-</p>
 
 ## Table of Contents
 
@@ -129,7 +124,7 @@ Comparison |  Example words |
 
 ## Hanami-framework
 
- `Hanami version 2.1.0`
+ `Hanami version 2.1.0 or greater`
 
 
 Please follow these - [Installation](#installation) steps:

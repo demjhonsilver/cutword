@@ -223,7 +223,7 @@ add:
 require "cutword"
 
 
-Method 1 ( Direct)
+Method 1 ( Direct )
 
 -------
 ```rb
@@ -233,7 +233,7 @@ module Bookshelf
   module Views
     module Helpers
       # Add your view helpers here
-      require 'cutword'
+      require "cutword"
 
     end
   end
@@ -244,14 +244,14 @@ end
 or 
 
 
-Method 2
+Method 2 ( InDirect )
 
 
 
 ```rb
 # app/views/helpers.rb
 
-module Booklab
+module Bookshelf
   module Views
     module Helpers
       include CutwordHelper
@@ -269,7 +269,7 @@ module Bookshelf
     module Views
       module Helpers
         module CutwordHelper
-          require 'cutword'
+          require "cutword"
         end
       end
     end

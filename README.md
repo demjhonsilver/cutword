@@ -2,8 +2,8 @@
 
 <h1>Cutword</h1>
 
-
-[![Gem Version](https://img.shields.io/gem/v/cutword.svg?logo=ruby&style=flat-square&label=Latest&color=brightgreen)](https://rubygems.org/gems/cutword)
+[![Gem Version](https://badge.fury.io/rb/cutword.svg)](https://badge.fury.io/rb/cutword)
+[![Gem Version](https://img.shields.io/gem/v/cutword.svg?logo=ruby&style=flat-square&label=Ruby&color=red)](https://rubygems.org/gems/cutword)
 ![Downloads](https://img.shields.io/gem/dt/cutword.svg?&style=flat-square&label=Downloads&color=orange)
 
 
@@ -30,33 +30,36 @@
 
 - [Installation](#installation)
 
+- [Paradigm](#paradigm)
+
 - [Example](#example)
 
+- [Hanami Framework](#hanami-framework)
 
+- [Rails Framework](#rails-framework)
 
 ## Description
 
 
 
-Cutword is a simple gem for string truncation/cut words in Ruby on Rails.
+Cutword is a simple gem for truncating words/strings or shortening words and names, compatible with Rails and Hanami.
 
-- Like uncontrolled long text in titles of articles, picture names, names, labels, etc.
+- It shortens long text in titles, picture names, labels, and more.
 
 
 ## Release-notes
 
-Version 1.0.0
+Version 2.0.0
 
 
 
 Major notes:
 
-- Renamed the `slicer` into `get` to make it short.
-- 2 methods are available
+- It supports both Hanami framework and Rails.
+- The first parameter specifies the limit (number of characters).
+- The second parameter can be text, symbols, strings, or words.
 
 -------
-
-
 
 ## Features
 
@@ -64,8 +67,7 @@ Major notes:
 
 Attributes  |  Functionality |
 ------ | -------- |
-`Cutword` | gem file module | 
-`get` | to get the words and letters with dynamic limit value |
+`Cutword` | gem module that can be directly used as a function | 
 
 
 ## Installation
@@ -76,12 +78,12 @@ To install the Cutword, you can use the following gem install command:
 
 Step 1:
 
-- Paste to your Gemfile then save.
+- Paste to your `Gemfile` then save.
 
 
 ```bash
 
-gem 'cutword', '~> 1.0'
+gem 'cutword', '~> 2.0'
 
 ```
 
@@ -98,13 +100,19 @@ Step 2:
 
 Step 3:
 
-- Restart Server
+- Restart your Server
 
-```bash
 
- rails s
 
-```
+## Paradigm
+
+`Cutword(number, 'Your text here')`
+
+`Cutword(limit, 'words / names / titles / label / articles / paragraph / sentence')`
+
+`Cutword(5, 'This is a short text.')`
+
+
 
 ## Example
 
@@ -116,8 +124,163 @@ Comparison |  Example words |
 `After` | Mary had a little lamb, its...|
 
 
+
+
+
+## Hanami-framework
+
+ `Hanami version 2.1.0`
+
+
+Please follow these - [Installation](#installation) steps:
+
+then proceed here:
+-------
+go to:
+
+app/view/helpers.rb
+
+add: 
+
+require 'cutword'
+
+
+-------
+```rb
+# app/bookshelf/views/helpers.rb
+
+module Bookshelf
+  module Views
+    module Helpers
+      # Add your view helpers here
+       require 'cutword'
+    end
+  end
+end
+
+```
+
+Let say your application is about books
+
+----------------
+
+## Method 1 - Hanami
+
+
+go to:
+
+app/view/books/index.rb
+
+```rb
+# app/bookshelf/views/books/index.rb
+
+module Bookshelf
+  module Views
+    module Books
+      class Index < Bookshelf::View
+        include Deps["persistence.rom"]
+
+        expose :books do |page:, per_page:|
+          rom.relations[:books]
+            .select(:title, :author)
+            .order(:title)
+            .page(page)
+            .per_page(per_page)
+            .to_a
+            .map do |book|
+              shorten_title = Cutword(10, book[:title])
+              {
+                title: shorten_title,
+                author: book[:author]
+              }
+            end
+        end
+      end
+    end
+  end
+end
+```
+
+go to:
+
+
+app/bookshelf/views/books/show.rb
+
+
+```ruby
+
+# app/bookshelf/views/books/show.rb
+
+module Bookshelf
+  module Views
+    module Books
+      class Show < Bookshelf::View
+        include Deps["persistence.rom"]
+
+        expose :book do |id:|
+          book_data = rom.relations[:books].by_pk(id).one!
+
+          # Process the book title with Cutword
+          if book_data && book_data[:title]
+            book_data[:title] = Cutword(10, book_data[:title])
+          end
+
+          book_data
+        end
+      end
+    end
+  end
+end
+```
+
 ------------
-Method 1
+
+or
+
+## Method 2 - Hanami
+
+
+note: don't forget to add: 
+
+`require 'cutword'`
+
+in your helpers, see above: [require 'cutword'](#hanami-framework)
+
+-------
+
+If you want to use the template directly:
+
+```html
+<!-- app/templates/books/index.html.erb -->
+
+<h1>Books</h1>
+
+<ul>
+  <% books.each do |book| %>
+    <li><%= Cutword(7, book[:title]) %>, by <%= book[:author] %></li>
+  <% end %>
+</ul>
+
+
+
+
+```
+
+```html
+
+<!-- app/templates/books/show.html.erb -->
+
+<h1><%= Cutword(7, book[:title]) %></h1> 
+<h1><%= book[:title] %></h1>
+
+<p>By <%= book[:author] %></p>
+
+```
+
+## Rails-framework
+
+------------
+## Method 1 - Rails
 ----------
 No need to declare cutword module inside the controllers
 
@@ -131,7 +294,7 @@ ex. index.html
 ```rb
 
   <% @articles.each do |article| %>
-     <h2><%= Cutword.get(article.title, 20) %></h2>
+     <h2><%= Cutword(20, article.title) %></h2>
       <%= article.body %>
   <% end %>
 
@@ -141,7 +304,7 @@ ex. show.html
 
 ```rb
 
-<%= Cutword.get(@article.title, 20) %>
+<%= Cutword(20, @article.title) %>
 
 ```
 ----------------
@@ -155,7 +318,7 @@ Method 2
 class ArticlesController < ApplicationController
   def index
     @articles = Article.all.order("created_at DESC")
-    @articleTitles_cut = @articles.map { |article| Cutword.get(article.title, 40) }
+    @articleTitles = @articles.map { |article| Cutword(40, article.title) }
   end
 end
 ```
@@ -166,7 +329,7 @@ In your View Template:
 ```rb
 
 <% @articles.each_with_index do |article, index| %>
-  <h2><%= @articleTitles_cut[index] %></h2>
+  <h2><%= @articleTitles[index] %></h2>
   <div><%= article.body %></div>
 <% end %>
 
@@ -182,7 +345,7 @@ In your View Template:
 class ArticlesController < ApplicationController
   def show
     @article = Article.find(params[:id])
-    @articleTitle_cut = Cutword.get(@article.title, 40)
+    @articleTitle = Cutword(40, @article.title)
   end
 end
 
@@ -192,14 +355,10 @@ In your View Template:
 
 ```rb
 
-<h1><%= @articleTitle_cut %></h1>
+<h1><%= @articleTitle %></h1>
 <div><%= @article.body %></div>
 
 ```
-
-You can view the exact web application sample:
-
-[Click here to see the actual code](https://github.com/demjhonsilver/ruby-on-rails-articles)
 
 
 ## License

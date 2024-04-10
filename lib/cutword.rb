@@ -1,16 +1,10 @@
-require 'cutword/version'
-require 'cutword/get_string'
+# lib/cutword.rb
 
-module Cutword
-  class << self
-    def get(text, max_length)
-      if text.length > max_length
-        truncated_text = text[0...max_length - 3].strip
-        truncated_text + '...'
-      else
-        text
-      end
-    end
+def Cutword(max_length, text)
+  if text.length > max_length
+    truncated_text = text[0...max_length].strip
+    truncated_text + (truncated_text.length < text.length ? '...' : '')
+  else
+    text
   end
 end
-

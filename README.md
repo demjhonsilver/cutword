@@ -29,9 +29,11 @@
 
 - [Example](#example)
 
+- [Rails Framework](#rails-framework)
+
 - [Hanami Framework](#hanami-framework)
 
-- [Rails Framework](#rails-framework)
+
 
 ## Description
 
@@ -119,6 +121,91 @@ Comparison |  Example words |
 `After` | Mary had a little lamb, its...|
 
 
+
+
+
+## Rails-framework
+
+------------
+## Method 1 - Rails
+----------
+No need to declare cutword module inside the controllers
+
+--------------
+In your View Template:
+
+just use directly:
+
+ex. index.html
+
+```rb
+
+  <% @articles.each do |article| %>
+     <h2><%= Cutword(20, article.title) %></h2>
+      <%= article.body %>
+  <% end %>
+
+```
+
+ex. show.html
+
+```rb
+
+<%= Cutword(20, @article.title) %>
+
+```
+----------------
+Method 2
+--------------
+
+
+```rb
+# app/controllers/articles_controller.rb
+
+class ArticlesController < ApplicationController
+  def index
+    @articles = Article.all.order("created_at DESC")
+    @articleTitles = @articles.map { |article| Cutword(40, article.title) }
+  end
+end
+```
+
+
+In your View Template:
+
+```rb
+
+<% @articles.each_with_index do |article, index| %>
+  <h2><%= @articleTitles[index] %></h2>
+  <div><%= article.body %></div>
+<% end %>
+
+```
+
+--------------------
+
+-----------------
+
+```rb
+# app/controllers/articles_controller.rb
+
+class ArticlesController < ApplicationController
+  def show
+    @article = Article.find(params[:id])
+    @articleTitle = Cutword(40, @article.title)
+  end
+end
+
+```
+
+In your View Template:
+
+```rb
+
+<h1><%= @articleTitle %></h1>
+<div><%= @article.body %></div>
+
+```
 
 
 
@@ -266,95 +353,10 @@ If you want to use the template directly:
 <!-- app/templates/books/show.html.erb -->
 
 <h1><%= Cutword(7, book[:title]) %></h1> 
-<h1><%= book[:title] %></h1>
 
 <p>By <%= book[:author] %></p>
 
 ```
-
-## Rails-framework
-
-------------
-## Method 1 - Rails
-----------
-No need to declare cutword module inside the controllers
-
---------------
-In your View Template:
-
-just use directly:
-
-ex. index.html
-
-```rb
-
-  <% @articles.each do |article| %>
-     <h2><%= Cutword(20, article.title) %></h2>
-      <%= article.body %>
-  <% end %>
-
-```
-
-ex. show.html
-
-```rb
-
-<%= Cutword(20, @article.title) %>
-
-```
-----------------
-Method 2
---------------
-
-
-```rb
-# app/controllers/articles_controller.rb
-
-class ArticlesController < ApplicationController
-  def index
-    @articles = Article.all.order("created_at DESC")
-    @articleTitles = @articles.map { |article| Cutword(40, article.title) }
-  end
-end
-```
-
-
-In your View Template:
-
-```rb
-
-<% @articles.each_with_index do |article, index| %>
-  <h2><%= @articleTitles[index] %></h2>
-  <div><%= article.body %></div>
-<% end %>
-
-```
-
---------------------
-
------------------
-
-```rb
-# app/controllers/articles_controller.rb
-
-class ArticlesController < ApplicationController
-  def show
-    @article = Article.find(params[:id])
-    @articleTitle = Cutword(40, @article.title)
-  end
-end
-
-```
-
-In your View Template:
-
-```rb
-
-<h1><%= @articleTitle %></h1>
-<div><%= @article.body %></div>
-
-```
-
 
 ## License
 

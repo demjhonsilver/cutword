@@ -80,7 +80,7 @@ Step 1:
 
 ```bash
 
-gem 'cutword', '~> 2.0'
+gem "cutword", "~> 2.0"
 
 ```
 
@@ -213,32 +213,21 @@ In your View Template:
 
  `Hanami version 2.1.0 or greater`
 
-
-Please follow these - [Installation](#installation) steps:
-
-then proceed here:
 -------
 go to:
 
-app/view/helpers.rb
+config/app.rb
 
 add: 
 
-require 'cutword'
+require "cutword"
 
 
 -------
 ```rb
-# app/bookshelf/views/helpers.rb
+# config/app.rb
 
-module Bookshelf
-  module Views
-    module Helpers
-      # Add your view helpers here
-       require 'cutword'
-    end
-  end
-end
+require "cutword"
 
 ```
 
@@ -322,11 +311,11 @@ or
 ## Method 2 - Hanami
 
 
-note: don't forget to add: 
+don't forget to add: 
 
-`require 'cutword'`
+`require "cutword"`
 
-in your helpers, see above: [require 'cutword'](#hanami-framework)
+in config/app.rb see above: [require "cutword"](#hanami-framework)
 
 -------
 

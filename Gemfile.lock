@@ -23,10 +23,11 @@ GEM
 
 PLATFORMS
   x64-mingw-ucrt
+  x86_64-linux
 
 DEPENDENCIES
   cutword!
   rspec
 
 BUNDLED WITH
-   2.5.7
+   2.5.9

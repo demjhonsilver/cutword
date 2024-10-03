@@ -214,70 +214,17 @@ In your View Template:
  `Hanami version 2.1.0 or greater`
 
 -------
-go to:
+Update config/app.rb with below content
+```rb
 
-app/views/helpers.rb
+require 'hanami'
+require 'cutword'
 
-add: 
-
-require "cutword"
-
-
-Method 1 ( Direct )
-
+```
 -------
-```rb
-# app/views/helpers.rb
-
-module Bookshelf
-  module Views
-    module Helpers
-      # Add your view helpers here
-      require "cutword"
-
-    end
-  end
-end
-
-```
-
-or 
-
-
-Method 2 ( InDirect )
 
 
 
-```rb
-# app/views/helpers.rb
-
-module Bookshelf
-  module Views
-    module Helpers
-      include CutwordHelper
-    end
-  end
-end
-
-```
-
-then create file: 
-
-```rb
-# app/views/helpers/cutword_helper.rb
-module Bookshelf
-    module Views
-      module Helpers
-        module CutwordHelper
-          require "cutword"
-        end
-      end
-    end
-end
-
-```
-
-Let say your application is about books
 
 ----------------
 
@@ -357,15 +304,9 @@ or
 ## Method 2 - Hanami
 
 
-don't forget to add: 
-
-`require "cutword"`
-
-in app/views/helpers.rb see above: [require "cutword"](#hanami-framework)
-
 -------
 
-If you want to use the template directly:
+
 
 ```html
 <!-- app/templates/books/index.html.erb -->
